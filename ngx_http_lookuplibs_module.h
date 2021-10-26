@@ -8,9 +8,10 @@
 
 typedef enum {
     NGX_HTTP_LKLB_ERR              = -1,
-    NGX_HTTP_LKLB_MATCH            =  0,
-    NGX_HTTP_LKLB_PARTIAL_MATCH    =  1,
-    NGX_HTTP_LKLB_DUP              =  2
+    NGX_HTTP_LKLB_OK               =  0,
+    NGX_HTTP_LKLB_MATCH            =  1,
+    NGX_HTTP_LKLB_PARTIAL_MATCH    =  2,
+    NGX_HTTP_LKLB_DUP              =  3
 } ngx_http_lklb_retval_e;
 
 #define NGX_HTTP_LKLB_TRANSFORM_HTONL        1

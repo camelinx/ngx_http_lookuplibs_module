@@ -38,6 +38,12 @@ ngx_http_lklb_radix_set_lock_functions(
     ngx_http_lklb_radix_unlock_pt  unlock_fn
 );
 
+ngx_http_lklb_retval_e
+ngx_http_lklb_radix_set_transforms(
+    ngx_http_lklb_radix_t         *tree,
+    ngx_uint_t                     transforms
+);
+
 ngx_uint_t
 ngx_http_lklb_radix_get_num_pages( ngx_http_lklb_radix_t *tree );
 

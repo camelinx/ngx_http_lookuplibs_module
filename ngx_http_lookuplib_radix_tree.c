@@ -124,12 +124,29 @@ ngx_http_lklb_radix_set_lock_functions(
     ngx_http_lklb_radix_wlock_pt   wlock_fnpt,
     ngx_http_lklb_radix_unlock_pt  unlock_fnpt
 ) {
+    if( NULL == tree ) {
+        return NGX_HTTP_LKLB_ERR;
+    }
+
     tree->lock_ctx     = lock_ctx;
     tree->rlock_fnpt   = rlock_fnpt;
     tree->wlock_fnpt   = wlock_fnpt;
     tree->unlock_fnpt  = unlock_fnpt;
 
-    return NGX_HTTP_LKLB_MATCH;
+    return NGX_HTTP_LKLB_OK;
+}
+
+ngx_http_lklb_retval_e
+ngx_http_lklb_radix_set_transforms(
+    ngx_http_lklb_radix_t         *tree,
+    ngx_uint_t                     transforms
+) {
+    if( NULL == tree ) {
+        return NGX_HTTP_LKLB_ERR;
+    }
+
+    tree->transforms = transforms;
+    return NGX_HTTP_LKLB_OK;
 }
 
 ngx_uint_t
