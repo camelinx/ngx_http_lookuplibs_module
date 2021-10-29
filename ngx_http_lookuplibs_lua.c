@@ -164,66 +164,37 @@ ngx_http_lklb_tree_unlock( void *lock_ctx )
 
 int
 ngx_http_lklb_create_lua_module( lua_State *L ) {
-    lua_createtable( L, 0, 1 );
+    ngx_http_lklb_main_conf_t   *lklbmcf;
 
-#if 0 
-    lua_pushcfunction( L, ngx_http_lklb_radix_create );
-    lua_setfield( L, -2, "radix_create" );
+    lua_getglobal( L, NGX_HTTP_LKLB_MCF_KEY );
+    lklbmcf = lua_touserdata( L, -1 );
+    lua_pop( L, 1 );
+
+    if( NULL == lklbmcf ) {
+        return -1;
+    }
+
+#ifdef NGX_HTTP_LKLB_ENABLE_LUA_FUNCTIONS
 
     lua_pushcfunction( L, ngx_http_lklb_radix_uint32_insert_lua );
-    lua_setfield( L, -2, "radix_uint32_insert" );
+    lua_setfield( L, -2, "insert_ipv4" );
 
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint32_insert_with_mask_lua );
-    lua_setfield( L, -2, "radix_uint32_insert_with_mask" );
+    lua_pushcfunction( L, ngx_http_lklb_radix_uint32_mask_insert_lua );
+    lua_setfield( L, -2, "insert_ipv4_with_mask" );
 
     lua_pushcfunction( L, ngx_http_lklb_radix_uint32_delete_lua );
-    lua_setfield( L, -2, "radix_uint32_delete" );
+    lua_setfield( L, -2, "delete_ipv4" );
 
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint32_delete_with_mask_lua );
-    lua_setfield( L, -2, "radix_uint32_delete_with_mask" );
+    lua_pushcfunction( L, ngx_http_lklb_radix_uint32_mask_delete_lua );
+    lua_setfield( L, -2, "delete_ipv4_with_mask" );
 
     lua_pushcfunction( L, ngx_http_lklb_radix_uint32_find_lua );
-    lua_setfield( L, -2, "radix_uint32_find" );
+    lua_setfield( L, -2, "find_ipv4" );
 
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint32_find_with_mask_lua );
-    lua_setfield( L, -2, "radix_uint32_find_with_mask" );
+    lua_pushcfunction( L, ngx_http_lklb_radix_uint32_mask_find_lua );
+    lua_setfield( L, -2, "find_ipv4_with_mask" );
 
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint128_insert_lua );
-    lua_setfield( L, -2, "radix_uint128_insert" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint128_insert_with_mask_lua );
-    lua_setfield( L, -2, "radix_uint128_insert_with_mask" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint128_delete_lua );
-    lua_setfield( L, -2, "radix_uint128_delete" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint128_delete_with_mask_lua );
-    lua_setfield( L, -2, "radix_uint128_delete_with_mask" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint128_find_lua );
-    lua_setfield( L, -2, "radix_uint128_find" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_uint128_find_with_mask_lua );
-    lua_setfield( L, -2, "radix_uint128_find_with_mask" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_str_insert_lua );
-    lua_setfield( L, -2, "radix_str_insert" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_str_insert_with_mask_lua );
-    lua_setfield( L, -2, "radix_str_insert_with_mask" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_str_delete_lua );
-    lua_setfield( L, -2, "radix_str_delete" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_str_delete_with_mask_lua );
-    lua_setfield( L, -2, "radix_str_delete_with_mask" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_str_find_lua );
-    lua_setfield( L, -2, "radix_str_find" );
-
-    lua_pushcfunction( L, ngx_http_lklb_radix_str_find_with_mask_lua );
-    lua_setfield( L, -2, "radix_str_find_with_mask" );
-#endif /* 0 */
+#endif /* NGX_HTTP_LKLB_ENABLE_LUA_FUNCTIONS */
 
     return 1;
 }

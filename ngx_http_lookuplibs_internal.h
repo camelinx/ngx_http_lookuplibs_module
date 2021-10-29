@@ -46,4 +46,6 @@ struct ngx_http_lklb_main_conf_s {
     ngx_array_t             *shared_libs;
 };
 
+#define NGX_HTTP_LKLB_MCF_KEY   "__ngx_lklb_mcf"
+
 #endif /* _NGX_HTTP_LOOKUPLIBS_INTERNAL_H_INCLUDED_ */
