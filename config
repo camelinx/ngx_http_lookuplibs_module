@@ -1,6 +1,13 @@
 ngx_addon_name=ngx_http_lookuplibs_module
 ngx_feature_path="$ngx_addon_dir"
-HTTP_MODULES="$HTTP_MODULES ngx_http_lookuplibs_module"
-CORE_INCS="$CORE_INCS $ngx_feature_path"
-NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_lookuplibs_module.c $ngx_addon_dir/ngx_http_lookuplib_radix_tree.c $ngx_addon_dir/ngx_http_lookuplibs_transforms.c $ngx_addon_dir/ngx_http_lookuplibs_lua.c"
 
+if test -n "$ngx_module_link"; then
+    ngx_module_type=HTTP_AUX_FILTER
+    ngx_module_name=ngx_http_lookuplibs_module
+    ngx_module_srcs="$ngx_addon_dir/ngx_http_lookuplibs_module.c $ngx_addon_dir/ngx_http_lookuplib_radix_tree.c $ngx_addon_dir/ngx_http_lookuplibs_transforms.c $ngx_addon_dir/ngx_http_lookuplibs_lua.c"
+    . auto/module
+else
+    HTTP_MODULES="$HTTP_MODULES ngx_http_lookuplibs_module"
+    CORE_INCS="$CORE_INCS $ngx_feature_path"
+    NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_lookuplibs_module.c $ngx_addon_dir/ngx_http_lookuplib_radix_tree.c $ngx_addon_dir/ngx_http_lookuplibs_transforms.c $ngx_addon_dir/ngx_http_lookuplibs_lua.c"
+fi
