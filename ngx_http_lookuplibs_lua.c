@@ -164,15 +164,6 @@ ngx_http_lklb_tree_unlock( void *lock_ctx )
 
 int
 ngx_http_lklb_create_lua_module( lua_State *L ) {
-    ngx_http_lklb_main_conf_t   *lklbmcf;
-
-    lua_getglobal( L, NGX_HTTP_LKLB_MCF_KEY );
-    lklbmcf = lua_touserdata( L, -1 );
-    lua_pop( L, 1 );
-
-    if( NULL == lklbmcf ) {
-        return -1;
-    }
 
 #ifdef NGX_HTTP_LKLB_ENABLE_LUA_FUNCTIONS
 

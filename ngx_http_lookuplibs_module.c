@@ -202,21 +202,11 @@ ngx_http_lklb_create_main_conf(ngx_conf_t *cf ) {
 static ngx_int_t
 ngx_http_lklb_post_config_init( ngx_conf_t *cf ) {
     ngx_http_lklb_main_conf_t   *lklbmcf;
-    lua_State                   *L;
 
     lklbmcf = ngx_http_conf_get_module_main_conf( cf, ngx_http_lookuplibs_module );
     if( NULL == lklbmcf ) {
          return NGX_ERROR;
     }
-
-    L = ngx_http_lua_get_global_state( cf );
-    if( NULL == L ) {
-         return NGX_ERROR;
-    }
-
-    /* Setup access to retrieve main conf in callback */
-    lua_pushlightuserdata( L, lklbmcf );
-    lua_setglobal( L, NGX_HTTP_LKLB_MCF_KEY );
 
     if( NGX_OK != ( ngx_http_lua_add_package_preload( cf, "ngxlookuplibs", ngx_http_lklb_create_lua_module ) ) ) {
         return NGX_ERROR;
