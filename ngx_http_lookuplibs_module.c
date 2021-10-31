@@ -208,7 +208,7 @@ ngx_http_lklb_post_config_init( ngx_conf_t *cf ) {
          return NGX_ERROR;
     }
 
-    if( NGX_OK != ( ngx_http_lua_add_package_preload( cf, "ngxlookuplibs", ngx_http_lklb_create_lua_module ) ) ) {
+    if( NGX_OK != ( ngx_http_lua_add_package_preload( cf, "ngx.lookuplibs", ngx_http_lklb_create_lua_module ) ) ) {
         return NGX_ERROR;
     }
 
