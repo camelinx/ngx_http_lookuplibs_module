@@ -162,10 +162,39 @@ ngx_http_lklb_tree_unlock( void *lock_ctx )
     ngx_rwlock_unlock( &radix_ctx->rwlock );
 }
 
+static int
+ngx_http_lklb_radix_uint32_insert_lua( lua_State *L ) {
+    return 1;
+}
+
+static int
+ngx_http_lklb_radix_uint32_mask_insert_lua( lua_State *L ) {
+    return 1;
+}
+
+static int
+ngx_http_lklb_radix_uint32_delete_lua( lua_State *L ) {
+    return 1;
+}
+
+static int
+ngx_http_lklb_radix_uint32_mask_delete_lua( lua_State *L ) {
+    return 1;
+}
+
+static int
+ngx_http_lklb_radix_uint32_find_lua( lua_State *L ) {
+    return 1;
+}
+
+static int
+ngx_http_lklb_radix_uint32_mask_find_lua( lua_State *L ) {
+    return 1;
+}
+
 int
 ngx_http_lklb_create_lua_module( lua_State *L ) {
-
-#ifdef NGX_HTTP_LKLB_ENABLE_LUA_FUNCTIONS
+    lua_createtable( L, 0, 1 );
 
     lua_pushcfunction( L, ngx_http_lklb_radix_uint32_insert_lua );
     lua_setfield( L, -2, "insert_ipv4" );
@@ -184,8 +213,6 @@ ngx_http_lklb_create_lua_module( lua_State *L ) {
 
     lua_pushcfunction( L, ngx_http_lklb_radix_uint32_mask_find_lua );
     lua_setfield( L, -2, "find_ipv4_with_mask" );
-
-#endif /* NGX_HTTP_LKLB_ENABLE_LUA_FUNCTIONS */
 
     return 1;
 }
